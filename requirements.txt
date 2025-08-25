@@ -1,4 +1,6 @@
 flask
 flask-basicauth
+flask-cors
 opencv-python
 numpy
+psutil

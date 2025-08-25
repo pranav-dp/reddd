@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'camera_page_improved.dart';
+import 'test_connection_page.dart';
 
 class DevicePage extends StatelessWidget {
   const DevicePage({super.key});
@@ -15,7 +17,7 @@ class DevicePage extends StatelessWidget {
               children: [
                 _buildAppBar(context),
                 Expanded(
-                  child: _buildDeviceInfo(),
+                  child: _buildDeviceInfo(context),
                 ),
               ],
             ),
@@ -64,17 +66,15 @@ class DevicePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceInfo() {
+  Widget _buildDeviceInfo(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard(
-            icon: Icons.camera_alt,
-            title: 'Camera',
-            details: 'High-resolution camera for insect detection',
-          ),
+          _buildCameraCard(context),
+          SizedBox(height: 16),
+          _buildTestConnectionCard(context),
           SizedBox(height: 16),
           _buildInfoCard(
             icon: Icons.battery_full,
@@ -94,6 +94,112 @@ class DevicePage extends StatelessWidget {
             details: '32GB - 45% used',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCameraCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CameraPageImproved()),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Color(0xFF16213E),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Color(0xFFE94560), width: 2),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.camera_alt, color: Color(0xFFE94560), size: 48),
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Live Camera Feed',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Tap to view real-time weevil detection',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF9BA4B4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Color(0xFFE94560),
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTestConnectionCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TestConnectionPage()),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Color(0xFF16213E),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Color(0xFFFFD700), width: 2),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.network_check, color: Color(0xFFFFD700), size: 48),
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Test Connection',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Debug network connectivity issues',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF9BA4B4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Color(0xFFFFD700),
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
